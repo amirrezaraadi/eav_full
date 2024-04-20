@@ -10,5 +10,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::apiResource('attributes' ,  \App\Http\Controllers\AttributeController::class);
 Route::apiResource('values' ,  \App\Http\Controllers\ValueController::class);
 Route::apiResource('tags' ,  \App\Http\Controllers\TagController::class);
+Route::apiResource('category' ,  \App\Http\Controllers\CategoryController::class);
 Route::post('register' , [\App\Http\Controllers\Auth\RegisteredUserController::class , 'store']);
 Route::get('test' , [\App\Http\Controllers\Auth\RegisteredUserController::class , 'test']);

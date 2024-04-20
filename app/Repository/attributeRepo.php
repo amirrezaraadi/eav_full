@@ -25,6 +25,8 @@ class attributeRepo
 
     public function createUser($data, $attributes)
     {
+
+
 //        foreach ($attributes as $attribute) {
 //            Attribute::create(['title' => $attribute , 'slug' => Str::slug($attribute)]);
 //
@@ -87,7 +89,39 @@ class attributeRepo
     public function getfindId($attr)
     {
         $attribute = Attribute::query()->where('title', $attr[0])->first();
-        if ( is_null($attribute)) return Attribute::query()->create(['title' , $attr[0] , 'slug' => $attr[0]]);
-       return $attribute;
+        if (is_null($attribute)) return Attribute::query()->create(['title', $attr[0], 'slug' => $attr[0]]);
+        return $attribute;
+    }
+
+    public function multiFind(array $attrs)
+    {
+//        foreach ($attrs as $attr) {
+//            $existingAttribute = Attribute::where('title', $attr)->first();
+//
+//            if (! $existingAttribute) {
+//                Attribute::create([
+//                    'title' => $attr,
+//                    'slug' => $attr,
+//                ]);
+//            }
+//            return  ;
+//        }
+
+        $createdAttributes = [];
+        foreach ($attrs as $attr) {
+            $existingAttribute = Attribute::where('title', $attr)->first();
+
+            if (!$existingAttribute) {
+                $newAttribute = Attribute::create([
+                    'title' => $attr,
+                    'slug' => $attr,
+                ]);
+                $createdAttributes[] = $newAttribute;
+            } else {
+                $createdAttributes[] = $existingAttribute;
+            }
+        }
+
+        return $createdAttributes;
     }
 }
