@@ -22,7 +22,6 @@ class CategoryController extends Controller
     {
         $attributeRepo = $attributeRepo->multiFind(array_keys($request->all()));
         $valueRepo = $valueRepo->getCreateMultiValue($request->all(), $attributeRepo);
-        dd($valueRepo);
         $this->categoryRepo->create($attributeRepo , $valueRepo);
         return response()->json(['ok'] ,200);
     }

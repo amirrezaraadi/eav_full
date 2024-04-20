@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Models\Attribute;
 use App\Models\Value;
 use Illuminate\Support\Str;
+use function PHPUnit\Framework\isEmpty;
 
 class valueRepo
 {
@@ -35,10 +36,8 @@ class valueRepo
     {
         $createdValues = [];
         foreach ($attributes as $attribute) {
-            $dataArray [] = $data ;
-            foreach ($dataArray as $data) {
-                $valueId = Value::query()->where('value', $data)->first();
-                if (is_null($valueId)) {
+            $valueIds = Value::whereIn('value', array_values($data))->get('id');
+            if ($valueIds->isEmpty()) {
                    foreach ($data as $data){
                        $createdValue = Value::query()->create([
                            'value' => $data,
@@ -47,9 +46,8 @@ class valueRepo
                        $createdValues[] = $createdValue;
                    }
                 } else {
-                    $createdValues[] = $valueId;
+                    $createdValues[] = $valueIds;
                 }
-            }
         }
         return $createdValues;
 
