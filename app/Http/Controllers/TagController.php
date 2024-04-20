@@ -24,8 +24,9 @@ class TagController extends Controller
     public function store(StoreTagRequest $request, attributeRepo $attributeRepo, valueRepo $valueRepo)
     {
         $attributeRepo = $attributeRepo->getfindId(array_keys($request->all()));
-        $valueRepo = $valueRepo->getFindValue($request->all(), $attributeRepo->id);
-        $this->tagRepo->create($attributeRepo->id, $valueRepo->id);
+        $valueRepo = $valueRepo->getFindValue($request, $attributeRepo);
+        dd($attributeRepo->id, $valueRepo->id);
+        $this->tagRepo->create($attributeRepo , $valueRepo->id);
         return response()->json(['ok'], 200);
     }
 

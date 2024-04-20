@@ -89,7 +89,7 @@ class attributeRepo
     public function getfindId($attr)
     {
         $attribute = Attribute::query()->where('title', $attr[0])->first();
-        if (is_null($attribute)) return Attribute::query()->create(['title', $attr[0], 'slug' => $attr[0]]);
+        if (is_null($attribute)) return Attribute::query()->create(['title' =>  $attr[0], 'slug' => $attr[0]]);
         return $attribute;
     }
 
@@ -110,8 +110,7 @@ class attributeRepo
         $createdAttributes = [];
         foreach ($attrs as $attr) {
             $existingAttribute = Attribute::where('title', $attr)->first();
-
-            if (!$existingAttribute) {
+            if (! $existingAttribute ) {
                 $newAttribute = Attribute::create([
                     'title' => $attr,
                     'slug' => $attr,
@@ -121,7 +120,6 @@ class attributeRepo
                 $createdAttributes[] = $existingAttribute;
             }
         }
-
         return $createdAttributes;
     }
 }

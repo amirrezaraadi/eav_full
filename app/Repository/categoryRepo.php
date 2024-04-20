@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Models\Category;
+use App\Models\Value;
 
 class categoryRepo
 {
@@ -11,12 +12,20 @@ class categoryRepo
         return Category::query()->paginate();
     }
 
-    public function create($value , $attribute)
+    public function create($attributes , $value)
     {
-        $data = json_encode([$value , $attribute]);
-        return Category::query()->create([
-            'attr' => 'asdas' ,
-            'user_id' => 1
-        ]);
+        foreach ($attributes as $attribute){
+
+        }
+
+
+
+
+
+//        $data = json_encode([$value , $attribute]);
+//        return Category::query()->create([
+//            'attr' => 'asdas' ,
+//            'user_id' => 1
+//        ]);
     }
 }
