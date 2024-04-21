@@ -17,7 +17,8 @@ class ValueFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'value' => $this->faker->name(),
+            'attribute_id' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

@@ -17,7 +17,8 @@ class AttributeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->name(),
+            'slug' => $this->faker->slug(),
         ];
     }
 }
