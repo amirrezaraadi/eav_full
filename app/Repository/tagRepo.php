@@ -39,4 +39,31 @@ class tagRepo
     {
         return Tag::query()->where('id' , $id)->delete();
     }
+
+    public function createTwo($attributes, $values)
+    {
+        $attributeIds = [];
+        foreach ($attributes as $attribute) {
+            $attributeIds[] = $attribute->id;
+        }
+
+        $valueIds = [];
+        foreach ($values as $value) {
+            $valueIds[] = $value->id;
+        }
+
+        $tags = [];
+        foreach ($attributes as $key => $attribute) {
+            $tags[] = [$attributeIds[$key], $valueIds[$key]];
+        }
+
+//        $existingTag = Tag::where('attr', json_encode($tags))->first();
+//        if ($existingTag) {
+//            return $existingTag;
+//        }
+        return Tag::create([
+            'attr' => json_encode($tags),
+        ]);
+    }
+
 }

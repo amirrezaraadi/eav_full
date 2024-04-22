@@ -16,8 +16,11 @@ class TagFactory extends Factory
      */
     public function definition(): array
     {
+//        $attr  = rand(1 , 99);
+//        $value  = rand(1 , 99);
+//        dd($attr);
         return [
-            //
+            'attr' => [[1,27]] ,
         ];
     }
 }

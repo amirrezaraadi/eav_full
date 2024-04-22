@@ -21,12 +21,19 @@ class TagController extends Controller
         return $this->tagRepo->index();
     }
 
+//    public function store(StoreTagRequest $request, attributeRepo $attributeRepo, valueRepo $valueRepo)
+//    {
+//        $attributeRepo = $attributeRepo->getfindId(array_keys($request->all()));
+//        $valueRepo = $valueRepo->getFindValue($request, $attributeRepo);
+//        dd($attributeRepo->id, $valueRepo->id);
+//        $this->tagRepo->create($attributeRepo , $valueRepo->id);
+//        return response()->json(['ok'], 200);
+//    }
     public function store(StoreTagRequest $request, attributeRepo $attributeRepo, valueRepo $valueRepo)
     {
-        $attributeRepo = $attributeRepo->getfindId(array_keys($request->all()));
-        $valueRepo = $valueRepo->getFindValue($request, $attributeRepo);
-        dd($attributeRepo->id, $valueRepo->id);
-        $this->tagRepo->create($attributeRepo , $valueRepo->id);
+        $attributeRepo = $attributeRepo->multiFind(array_keys($request->all()));
+        $valueRepo = $valueRepo->getCreateMultiValue($request->all(), $attributeRepo);
+        $this->tagRepo->createTwo($attributeRepo , $valueRepo);
         return response()->json(['ok'], 200);
     }
 
